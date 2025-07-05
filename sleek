@@ -1,0 +1,124 @@
+#!/usr/bin/php
+<?php
+
+/**
+ * Displays formatted alert messages with different styles similar to Laravel's CLI output.
+ *
+ * @param string $type Type of alert (info, success, error, warning)
+ * @param string $message The message to display
+ */
+function alert($type, $message) {
+    switch ($type) {
+        case 'success':
+            echo "\033[32m\n[✔] $message\n\n\033[0m";
+            break;
+        case 'error':
+            echo "\033[31m\n[✘] $message\n\n\033[0m";
+            break;
+        case 'warning':
+            echo "\033[33m\n[!] $message\n\n\033[0m";
+            break;
+        case 'info':
+        default:
+            echo "\033[36m\n[ℹ] $message\n\n\033[0m";
+            break;
+    }
+}
+
+// Remove the script name from arguments
+array_shift($argv);
+
+if (count($argv) === 0) {
+    alert('error', 'No command provided.');
+    alert('info', 'Available commands:');
+    echo "  php sleek make:controller ControllerName\n";
+    echo "  php sleek make:model ModelName\n";
+    echo "  php sleek make:view ViewName\n";
+    echo "  php sleek make:migration MigrationName\n";
+    echo "  php sleek migrate\n";
+    echo "  php sleek run\n";
+    exit(1);
+}
+
+$command = $argv[0];
+$resourceName = isset($argv[1]) ? $argv[1] : null;
+
+switch ($command) {
+    case 'make:controller':
+        if (!$resourceName) {
+            alert('error', 'Controller name not provided.');
+            exit(1);
+        }
+        $controllerTemplate = "<?php\n\nnamespace App\Controllers;\n\nclass {$resourceName} {\n    public function index() {\n        // Action logic here\n    }\n}\n";
+        file_put_contents(__DIR__ . "/app/Controllers/{$resourceName}.php", $controllerTemplate);
+        alert('success', "Controller created successfully: {$resourceName}");
+        break;
+
+    case 'make:model':
+        if (!$resourceName) {
+            alert('error', 'Model name not provided.');
+            exit(1);
+        }
+        $tableName = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $resourceName)) . 's';
+        $modelTemplate = "<?php\n\nnamespace App\Models;\n\nuse System\Core\Model;\n\nclass {$resourceName} extends Model {\n    protected static \$table = '{$tableName}';\n}\n";
+        file_put_contents(__DIR__ . "/app/Models/{$resourceName}.php", $modelTemplate);
+        alert('success', "Model created successfully: {$resourceName}");
+        break;
+
+    case 'make:view':
+        if (!$resourceName) {
+            alert('error', 'View name not provided.');
+            exit(1);
+        }
+        $viewTemplate = "<!-- {$resourceName} view -->\n<h1>Welcome to {$resourceName} view!</h1>";
+        file_put_contents(__DIR__ . "/app/Views/{$resourceName}.php", $viewTemplate);
+        alert('success', "View created successfully: {$resourceName}");
+        break;
+
+    case 'make:migration':
+        if (!$resourceName) {
+            alert('error', 'Migration name not provided.');
+            exit(1);
+        }
+        $timestamp = date('Y_m_d_His');
+        $migrationFileName = "{$timestamp}_{$resourceName}";
+        $migrationClassName = 'Migration_' . $timestamp . '_' . ucfirst($resourceName);
+
+        $migrationTemplate = "<?php\n\nnamespace Database\Migrations;\n\nclass {$migrationClassName} {\n    public function up() {\n        // Migration logic here\n    }\n\n    public function down() {\n        // Rollback logic here\n    }\n}\n";
+        
+        file_put_contents(__DIR__ . "/database/migrations/{$migrationFileName}.php", $migrationTemplate);
+        alert('success', "Migration created successfully: {$migrationFileName}");
+        break;
+
+    case 'migrate':
+        alert('info', 'Running migrations...');
+        $migrations = glob(__DIR__ . '/database/migrations/*.php');
+        foreach ($migrations as $migration) {
+            require_once $migration;
+            $className = 'Database\\Migrations\\' . basename($migration, '.php');
+            if (class_exists($className)) {
+                $migrationInstance = new $className();
+                if (method_exists($migrationInstance, 'up')) {
+                    $migrationInstance->up();
+                    alert('success', "Migrated: " . basename($migration));
+                }
+            }
+        }
+        break;
+
+    case 'run':
+        alert('info', 'Starting development server at http://localhost:8000');
+        passthru('php -S localhost:8000 -t public');
+        break;
+
+    default:
+        alert('warning', "Unknown command: {$command}");
+        alert('info', 'Available commands:');
+        echo "  php sleek make:controller ControllerName\n";
+        echo "  php sleek make:model ModelName\n";
+        echo "  php sleek make:view ViewName\n";
+        echo "  php sleek make:migration MigrationName\n";
+        echo "  php sleek migrate\n";
+        echo "  php sleek run\n";
+        break;
+}
