@@ -143,7 +143,7 @@
             </div>
         </div>
 
-        <a class="btn" href="https://github.com" target="_blank">View Documentation</a>
+        <a class="btn" href="https://github.com/sleekphp/sleekphp/blob/main/README.md" target="_blank">View Documentation</a>
 
         <div class="footer">
             &copy; {{ date('Y') }} sleekPHP. Crafted with ❤️ in PHP.
