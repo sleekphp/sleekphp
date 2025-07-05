@@ -7,6 +7,8 @@ use PDO;
 class Model {
     protected static $table;
     protected $connection;
+    protected $params = [];
+    protected $query;
 
     public function __construct() {
         $this->connection = $this->connect();
