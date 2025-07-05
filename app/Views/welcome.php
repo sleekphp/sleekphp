@@ -10,7 +10,8 @@
             --accent: #8338ec;
             --bg: #f9f9ff;
             --text: #2d2d2d;
-            --muted: #888;
+            --muted: #666;
+            --white: #fff;
         }
 
         body {
@@ -19,6 +20,10 @@
             background: linear-gradient(to bottom right, #eef2ff, #fefefe);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text);
+        }
+
+        .text-white {
+            color: var(--white) !important;
         }
 
         .container {
@@ -34,27 +39,57 @@
             letter-spacing: 2px;
             color: var(--primary);
             margin-bottom: 10px;
-            animation: slideDown 1s ease-out;
         }
 
         .logo span {
             color: var(--accent);
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .links {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: var(--text);
+            margin: 0 10px;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #265df2;
         }
 
         h1 {
-            font-size: 40px;
+            font-size: 38px;
             margin-bottom: 15px;
         }
 
         p {
             font-size: 18px;
             color: var(--muted);
-            line-height: 1.6;
             margin-bottom: 30px;
         }
 
@@ -86,12 +121,11 @@
 
         code {
             background: #f4f4f4;
-            padding: 5px 10px;
+            padding: 6px 10px;
             border-radius: 5px;
             color: var(--accent);
             font-size: 15px;
             display: inline-block;
-            margin: 10px 0;
         }
 
         .footer {
@@ -99,28 +133,32 @@
             font-size: 14px;
             color: #aaa;
         }
-
-        .btn {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: #fff;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #265df2;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="logo">sleek<span>PHP</span></div>
-        <h1>Welcome to sleekPHP</h1>
-        <p>A lightweight and beginner-friendly PHP framework with MVC, routing, migration, and a simple ORM system.</p>
+
+        <div class="links">
+            <a href="https://github.com/sleekphp/sleekphp" target="_blank">
+                <svg viewBox="0 0 16 16"><path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 
+                    0-.19-.01-.82-.01-1.49-2 .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+                    0-.53.63-.01 1.08.58 1.23.82.72 1.2 1.87.86 2.33.66.07-.52.28-.86.5-1.06-1.78-.2-3.64-.89-3.64-3.95
+                    0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.54 
+                    7.54 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 
+                    2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 
+                    2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 
+                    1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 
+                    8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+            </a>
+            <a href="https://github.com/sleekphp/sleekphp/blob/main/README.md" class="btn text-white" target="_blank">📘 Documentation</a>
+        </div>
+
+        <h1>🚀 Welcome to sleekPHP</h1>
+        <p>A lightweight and beginner-friendly PHP framework with MVC, routing, migration, and ORM support.</p>
 
         <code>Route::get('/', 'WelcomeController@index');</code>
 
@@ -131,22 +169,20 @@
             </div>
             <div class="feature">
                 <h3>⚡ Blade-like Views</h3>
-                <p>Use Laravel-style directives: <code>@if</code>, <code>@foreach</code>, <code>{{ '$var' }}</code>, and more.</p>
+                <p>Use Laravel-style directives: <code>@if</code>, <code>@foreach</code>, <code>{{ '$var' }}</code>.</p>
             </div>
             <div class="feature">
-                <h3>🧰 Easy Commands</h3>
-                <p>Create controllers, models, and migrations using <code>php sleek make:*</code>.</p>
+                <h3>🧰 Easy CLI Commands</h3>
+                <p>Generate files with <code>php sleek make:controller Name</code> and more.</p>
             </div>
             <div class="feature">
                 <h3>🗄️ Migrations</h3>
-                <p>Define and run your schema changes with versioned migration classes.</p>
+                <p>Version-controlled schema management using simple migration classes.</p>
             </div>
         </div>
 
-        <a class="btn" href="https://github.com/sleekphp/sleekphp/blob/main/README.md" target="_blank">View Documentation</a>
-
         <div class="footer">
-            &copy; {{ date('Y') }} sleekPHP. Crafted with ❤️ in PHP.
+            &copy; {{ date('Y') }} sleekPHP — Built with ❤️ in PHP.
         </div>
     </div>
 
