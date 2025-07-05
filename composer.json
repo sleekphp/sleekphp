@@ -1,0 +1,28 @@
+{
+  "name": "sleekphp/framework",
+  "description": "A lightweight beginner-friendly PHP framework using MVC and a simple ORM",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Arafat Hossain",
+      "email": "arafat.122260@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "System\\": "system/",
+      "Database\\": "database/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+
+    ]
+  },
+  "minimum-stability": "stable"
+}
