@@ -17,12 +17,21 @@
       "App\\": "app/",
       "System\\": "system/",
       "Database\\": "database/"
-    }
+    },
+    "classmap": [
+      "routes/",
+      "config/"
+    ]
   },
   "scripts": {
     "post-autoload-dump": [
-
+      "@php vendor/bin/sleek"
     ]
   },
-  "minimum-stability": "stable"
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
