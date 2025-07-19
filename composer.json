@@ -1,6 +1,13 @@
 {
   "name": "sleekphp/sleekphp",
   "description": "A lightweight beginner-friendly PHP framework using MVC and a simple ORM",
+  "keywords": [
+    "framework",
+    "php",
+    "mvc",
+    "orm",
+    "sleekphp"
+  ],
   "type": "project",
   "license": "MIT",
   "authors": [
@@ -24,8 +31,8 @@
     ]
   },
   "scripts": {
-    "post-autoload-dump": [
-      "@php vendor/bin/sleek"
+    "post-create-project-cmd": [
+      "@php -r \"copy('.env.example', '.env');\""
     ]
   },
   "config": {
