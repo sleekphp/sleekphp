@@ -1,5 +1,5 @@
 {
-  "name": "sleekphp/framework",
+  "name": "sleekphp/sleekphp",
   "description": "A lightweight beginner-friendly PHP framework using MVC and a simple ORM",
   "type": "project",
   "license": "MIT",
